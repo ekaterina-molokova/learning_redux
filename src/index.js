@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
@@ -32,42 +31,41 @@ function rootReducer(state=initialState, action) {
 function addToDo(e) {
     e.preventDefault();
     let newToDo = document.querySelector('#todo').value
-    store.dispatch({
-        type: 'ADD',
-        todo: newToDo
-    })
-    let newLi = document
-        .createElement('li')
-    newLi.textContent = newToDo
-    let deleteButton = document.createElement('button')
-    deleteButton.textContent = 'Delete'
-    console.log( `store.getState().id ${store.getState().id}`)
-    deleteButton.setAttribute('id', store.getState().id)
-    console.log( `deleteButton.id ${deleteButton.id}`)
-    deleteButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        console.log(e.target)
-        store.dispatch({
-            type: 'DELETE',
-            id: e.target.id
+    if (newToDo.length < 1) {
+        document.querySelector('.error').classList.add('error_visible')
+    } else {
+        document.querySelector('.error').classList.remove('error_visible')
+        let newLi = document
+            .createElement('li')
+        newLi.textContent = newToDo
+        let deleteButton = document.createElement('button')
+        deleteButton.textContent = 'Delete'
+        deleteButton
+            .setAttribute('id', store.getState().id)
+        deleteButton.classList.add('deleteButton')
+        deleteButton.addEventListener('click', function (e) {
+            store.dispatch({
+                type: 'DELETE',
+                id: e.target.id
+            })
+            e.target.closest('li').remove()
         })
-        console.log(`e.target.closest ${e.target.closest('li')}`)
-        e.target.closest('li').remove()
-    })
-    document.querySelector('.todos').append(newLi)
-    document.querySelector('form').reset()
-    newLi.append(deleteButton)
+        document.querySelector('.todos').append(newLi)
+        document.querySelector('form').reset()
+        newLi.append(deleteButton)
+    }
 }
 ReactDOM.render(
   <React.StrictMode>
       <Provider store={store}>
           <h1 className='title'>To-do-s</h1>
-          <ul className='todos'></ul>
-          <form onSubmit={(e) => addToDo(e)}>
-              <label htmlFor='todo'>Task: </label>
-              <input type='text' name='todo' id='todo'/>
-              <button type='button'>Add a to-do</button>
+          <form className='form' onSubmit={(e) => addToDo(e)}>
+              <label className='label' htmlFor='todo'>Task:</label>
+              <input className='input' type='text' name='todo' id='todo' placeholder='What would you like to do?'/>
+              <span className='error'>Input couldn't be empty</span>
+              <button type='submit' className='addButton' onSubmit={(e) => addToDo(e)}>Add a to-do</button>
           </form>
+          <ul className='todos' />
       </Provider>
   </React.StrictMode>,
   document.getElementById('root')

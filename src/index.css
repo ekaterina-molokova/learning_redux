@@ -17,3 +17,71 @@ code {
   margin: 20px 0;
   padding: 0 20px;
 }
+
+.todos, .form {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  margin: 0 20px;
+  padding: 0;
+}
+
+.label {
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.error {
+  display: none;
+  padding: 10px;
+  color: darkred;
+}
+
+.error_visible {
+  display: flex;
+}
+
+.input {
+  box-sizing: border-box;
+  margin: 10px 0;
+  padding: 5px;
+  border-radius: 14px;
+  background-color: bisque;
+}
+
+.addButton {
+  box-sizing: border-box;
+  margin: 10px 0;
+  padding: 5px;
+  border-radius: 14px;
+  background-color: aquamarine;
+}
+
+.addButton:hover,
+.deleteButton:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.addButton:active {
+  opacity: 1;
+  background-color: cadetblue;
+}
+
+li {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 5px;
+}
+
+.deleteButton {
+  box-sizing: border-box;
+  margin: 0 0 0 10px;
+  padding: 5px;
+  border-radius: 14px;
+  background-color: coral;
+}
+
+.deleteButton:active {
+  opacity: 1;
+}
