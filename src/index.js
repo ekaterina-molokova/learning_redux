@@ -22,7 +22,7 @@ function rootReducer(state=initialState, action) {
                 todos: [...newState.todos, { todo: action.todo, id: newState.id }]
             }
         case 'DELETE':
-            return initialState
+            return state
         default:
             return state
     }
@@ -35,10 +35,27 @@ function addToDo(e) {
         type: 'ADD',
         todo: newToDo
     })
-    let newLi = document.createElement('li')
+    let newLi = document
+        .createElement('li')
     newLi.textContent = newToDo
+    let deleteButton = document.createElement('button')
+    deleteButton.textContent = 'Delete'
+    console.log( `store.getState().id ${store.getState().id}`)
+    deleteButton.setAttribute('id', store.getState().id)
+    console.log( `deleteButton.id ${deleteButton.id}`)
+    deleteButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        console.log(e.target)
+        store.dispatch({
+            type: 'DELETE',
+            id: e.target.id
+        })
+        console.log(`e.target.closest ${e.target.closest('li')}`)
+        e.target.closest('li').remove()
+    })
     document.querySelector('.todos').append(newLi)
     document.querySelector('form').reset()
+    newLi.append(deleteButton)
 }
 ReactDOM.render(
   <React.StrictMode>
