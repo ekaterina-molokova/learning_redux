@@ -5,59 +5,48 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
-// import {combineReducers} from 'redux';
 
-const initialState = {
+let initialState = {
     count: 0
 }
+const store = createStore(rootReducer)
+let newState = {...initialState}
+console.log(`newState ${newState.count}`)
 
 function rootReducer(state=initialState, action) {
-    if (action.type === 'INCREMENT') {
-        let newState = Object.assign({}, state)
-            newState.count++
-        return newState
+    switch (action.type) {
+        case 'INCREMENT':
+            newState.count++;
+            return newState
+        case 'DECREMENT':
+            newState.count--;
+            return newState
+        default:
+            return state
     }
-    if (action.type === 'DECREMENT') {
-        let newState = Object.assign({}, state)
-        newState.count--
-        return newState
-    }
-    return state;
 }
 
-const store = createStore(rootReducer)
-console.log(store.getState())
-
-function increment () {
-    return {type: 'INCREMENT'}
+function increment() {
+    store.dispatch({
+        type: 'INCREMENT'
+    })
+    console.log(newState.count)
 }
 
-function decrement () {
-    return {type: 'DECREMENT'}
+function decrement() {
+    store.dispatch({
+        type: 'DECREMENT'
+    })
+    console.log(newState.count)
 }
-
-store.dispatch({type: 'INCREMENT'})
-console.log(store.getState())
-
-store.dispatch(increment())
-console.log(store.getState())
-
-store.dispatch({type: 'DECREMENT'})
-console.log(store.getState())
-
-store.dispatch(decrement())
-console.log(store.getState())
 
 ReactDOM.render(
   <React.StrictMode>
       <Provider store={store}>
-          <App state={initialState} />
+          <App count={newState} increment={increment} decrement={decrement} />
       </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
