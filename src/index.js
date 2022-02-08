@@ -11,7 +11,10 @@ let initialState = {
 }
 const store = createStore(rootReducer)
 let newState = {...initialState}
-console.log(`newState ${newState.count}`)
+
+document.addEventListener("click", function () {
+    document.querySelector('.title').textContent = `Count is ${newState.count}`
+})
 
 function rootReducer(state=initialState, action) {
     switch (action.type) {
@@ -43,6 +46,7 @@ function decrement() {
 ReactDOM.render(
   <React.StrictMode>
       <Provider store={store}>
+          <h1 className='title'>Count is 0</h1>
           <App count={newState} increment={increment} decrement={decrement} />
       </Provider>
   </React.StrictMode>,
