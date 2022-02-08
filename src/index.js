@@ -7,47 +7,49 @@ import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 
 let initialState = {
-    count: 0
+    todos: [],
+    id: 0
 }
 const store = createStore(rootReducer)
-let newState = {...initialState}
-
-document.addEventListener("click", function () {
-    document.querySelector('.title').textContent = `Count is ${newState.count}`
-})
 
 function rootReducer(state=initialState, action) {
     switch (action.type) {
-        case 'INCREMENT':
-            newState.count++;
-            return newState
-        case 'DECREMENT':
-            newState.count--;
-            return newState
+        case 'ADD':
+            let newState = { ...state }
+            newState.id++
+            return {
+                ...newState,
+                todos: [...newState.todos, { todo: action.todo, id: newState.id }]
+            }
+        case 'DELETE':
+            return initialState
         default:
             return state
     }
 }
 
-function increment() {
+function addToDo(e) {
+    e.preventDefault();
+    let newToDo = document.querySelector('#todo').value
     store.dispatch({
-        type: 'INCREMENT'
+        type: 'ADD',
+        todo: newToDo
     })
-    console.log(newState.count)
+    let newLi = document.createElement('li')
+    newLi.textContent = newToDo
+    document.querySelector('.todos').append(newLi)
+    document.querySelector('form').reset()
 }
-
-function decrement() {
-    store.dispatch({
-        type: 'DECREMENT'
-    })
-    console.log(newState.count)
-}
-
 ReactDOM.render(
   <React.StrictMode>
       <Provider store={store}>
-          <h1 className='title'>Count is 0</h1>
-          <App count={newState} increment={increment} decrement={decrement} />
+          <h1 className='title'>To-do-s</h1>
+          <ul className='todos'></ul>
+          <form onSubmit={(e) => addToDo(e)}>
+              <label htmlFor='todo'>Task: </label>
+              <input type='text' name='todo' id='todo'/>
+              <button type='button'>Add a to-do</button>
+          </form>
       </Provider>
   </React.StrictMode>,
   document.getElementById('root')
