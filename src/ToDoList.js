@@ -6,7 +6,6 @@ import './Form.css';
 
 function ToDoList(todos) {
     const [inputValue, setInputValue] = useState('')
-    console.log(todos)
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -23,21 +22,21 @@ function ToDoList(todos) {
         setInputValue(e.target.value)
     }
 
-    function deleteToDo(id) {
-        todos.dispatch({
-            type: 'DElETE',
-            id
-        })
+    function deleteToDo(e) {
+        e.target.closest('li').remove()
+        // todos.dispatch({
+        //     type: 'DElETE',
+        //     id
+        // })
     }
 
-    debugger
     return (
         <>
             <ol className='todo-list'>
                 {todos.todos.length < 1
                     ? <span>There is nothing to do</span>
                     : todos.todos.map((task, index) =>
-                        <ToDo task={task} key={index} remove={deleteToDo(task.id)} />
+                        <ToDo task={task} key={index} remove={deleteToDo} />
                         )}
             </ol>
             <form className='form' onSubmit={(e) => handleSubmit(e)}>
@@ -63,7 +62,6 @@ function ToDoList(todos) {
 }
 
 function mapStateToProps(reduxState) {
-    debugger
     return {
         todos: reduxState.todos
     }

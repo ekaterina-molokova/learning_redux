@@ -5,7 +5,7 @@ function ToDo({task, remove}) {
     return (
         <li className='todo-item'>
             {task}
-            <button type='reset' className='' onClick={remove}>Del</button>
+            <button type='reset' className='' onClick={(e) => remove(e)}>Del</button>
         </li>
     );
 }

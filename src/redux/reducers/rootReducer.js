@@ -8,7 +8,6 @@ const initialState = {
 export default function rootReducer(state=initialState, action) {
     switch (action.type) {
         case addToDo:
-            debugger
             let newState = { ...state }
             newState.id++
             return {
@@ -16,7 +15,6 @@ export default function rootReducer(state=initialState, action) {
                 todos: [...newState.todos, { task: action.task, id: newState.id }]
             }
         case deleteToDo:
-            debugger
             let todos = state.todos.filter(value => value.id !== action.id);
             return { ...state, todos }
             default:
