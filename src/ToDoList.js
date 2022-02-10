@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './ToDoList.css';
 import ToDo from './ToDo';
 import './Form.css';
-import {addToDo} from "./redux/actions/actionCreators";
+import { addToDo, deleteToDo } from './redux/actions/actionCreators';
 
 function ToDoList(todos) {
     const [inputValue, setInputValue] = useState({
@@ -13,13 +13,10 @@ function ToDoList(todos) {
     function handleSubmit(e) {
         e.preventDefault();
         // todos.todos.push(inputValue)
-        todos.dispatch({
-            type: 'ADD',
-            task: inputValue.task
-        })
-        setInputValue({
-            task: ''
-        })
+        todos.dispatch(addToDo(inputValue.task))
+        // setInputValue({
+        //     task: ''
+        // })
         e.target.reset()
     }
 
@@ -29,12 +26,10 @@ function ToDoList(todos) {
         })
     }
 
-    function deleteToDo(e) {
-        e.target.closest('li').remove()
-        // todos.dispatch({
-        //     type: 'DElETE',
-        //     id
-        // })
+    function deleteToDo(id) {
+        console.log(id)
+        // e.target.closest('li').remove()
+        // todos.dispatch(deleteToDo(id))
     }
 
     return (
@@ -75,4 +70,4 @@ function mapStateToProps(reduxState) {
     }
 }
 
-export default connect(mapStateToProps) (ToDoList);
+export default connect(mapStateToProps, { addToDo, deleteToDo }) (ToDoList);
