@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import ToDoList from './ToDoList';
 
-function App({}) {
+function App() {
   return (
       <section className='App'>
         <h1>See Our ToDos</h1>

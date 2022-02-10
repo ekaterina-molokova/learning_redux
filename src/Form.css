@@ -1,0 +1,70 @@
+.form {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.label {
+    margin: 0 auto;
+    padding: 10px;
+    color: cadetblue;
+}
+
+.error {
+    display: none;
+    padding: 10px;
+    color: darkred;
+}
+
+.error_visible {
+    display: flex;
+}
+
+.input {
+    box-sizing: border-box;
+    margin: 0 0 10px 0;
+    padding: 5px;
+    border-radius: 14px;
+    border: 2px solid orangered;
+    min-width: 200px;
+    text-align: center;
+}
+
+.addButton {
+    box-sizing: border-box;
+    margin: 0 0 10px 0;
+    padding: 5px;
+    border-radius: 14px;
+    border: 2px solid cadetblue;
+    background-color: transparent;
+}
+
+.addButton:hover,
+.deleteButton:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.addButton:active {
+    opacity: 1;
+}
+
+li {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 5px;
+}
+
+.deleteButton {
+    box-sizing: border-box;
+    margin: 0 0 0 10px;
+    padding: 5px;
+    border-radius: 14px;
+    background-color: coral;
+}
+
+.deleteButton:active {
+    opacity: 1;
+}
