@@ -5,7 +5,13 @@ function ToDo({task, remove}) {
     return (
         <li className='todo-item'>
             {task}
-            <button type='reset' className='' onClick={(e) => remove(e)}>Del</button>
+            <button
+                type='reset'
+                className='deleteButton'
+                onClick={(e) => remove(e)}
+            >
+                Delete
+            </button>
         </li>
     );
 }

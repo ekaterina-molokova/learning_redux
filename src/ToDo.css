@@ -9,3 +9,15 @@
     cursor: pointer;
     color: orangered;
 }
+
+.deleteButton {
+    box-sizing: border-box;
+    margin: 0 0 0 10px;
+    padding: 5px;
+    border-radius: 14px;
+    background-color: coral;
+}
+
+.deleteButton:active {
+    opacity: 1;
+}

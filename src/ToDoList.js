@@ -1,25 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import './ToDoList.css';
 import ToDo from './ToDo';
 import './Form.css';
+import {addToDo} from "./redux/actions/actionCreators";
 
 function ToDoList(todos) {
-    const [inputValue, setInputValue] = useState('')
+    const [inputValue, setInputValue] = useState({
+        task: ''
+    })
 
     function handleSubmit(e) {
         e.preventDefault();
-        todos.todos.push(inputValue)
+        // todos.todos.push(inputValue)
         todos.dispatch({
             type: 'ADD',
-            task: inputValue
+            task: inputValue.task
         })
-        setInputValue('')
+        setInputValue({
+            task: ''
+        })
         e.target.reset()
     }
 
     function handleChange(e) {
-        setInputValue(e.target.value)
+        setInputValue({
+            task: e.target.value
+        })
     }
 
     function deleteToDo(e) {
@@ -62,6 +69,7 @@ function ToDoList(todos) {
 }
 
 function mapStateToProps(reduxState) {
+    debugger
     return {
         todos: reduxState.todos
     }
