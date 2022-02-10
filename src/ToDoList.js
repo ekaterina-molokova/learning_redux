@@ -5,7 +5,7 @@ import ToDo from './ToDo';
 
 function ToDoList({}) {
     const [initialState, setInitialState] = useState({
-        todos: ['Run', 'Eat', 'Learn']
+        todos: []
     })
     return (
         <ul className='todo-list'>
@@ -14,4 +14,10 @@ function ToDoList({}) {
     );
 }
 
-export default connect() (ToDoList);
+function mapStateToProps(reduxState) {
+    return {
+        todos: reduxState.todos
+    }
+}
+
+export default connect(mapStateToProps) (ToDoList);
