@@ -5,18 +5,17 @@ import ToDo from './ToDo';
 import './Form.css';
 import { addToDo, deleteToDo } from './redux/actions/actionCreators';
 
-function ToDoList(todos) {
+function ToDoList({ store, todos }) {
     const [inputValue, setInputValue] = useState({
         task: ''
     })
 
     function handleSubmit(e) {
         e.preventDefault();
-        // todos.todos.push(inputValue)
-        todos.dispatch(addToDo(inputValue.task))
-        // setInputValue({
-        //     task: ''
-        // })
+        store.dispatch({
+            type: 'ADD',
+            task: inputValue.task
+        })
         e.target.reset()
     }
 
@@ -26,20 +25,20 @@ function ToDoList(todos) {
         })
     }
 
-    function deleteToDo(id) {
-        console.log(id)
-        // e.target.closest('li').remove()
-        // todos.dispatch(deleteToDo(id))
+    function deleteToDo(e) {
+        store.dispatch({
+            type: 'DELETE',
+            id: e.target.closest('li').id
+        })
+        e.target.closest('li').remove()
     }
 
     return (
         <>
             <ol className='todo-list'>
-                {todos.todos.length < 1
-                    ? <span>There is nothing to do</span>
-                    : todos.todos.map((task, index) =>
-                        <ToDo task={task} key={index} remove={deleteToDo} />
-                        )}
+                {todos.map(( { task, id }) =>
+                    <ToDo task={task} key={id} id={id} remove={deleteToDo} />
+                    )}
             </ol>
             <form className='form' onSubmit={(e) => handleSubmit(e)}>
                 <label className='label' htmlFor='to-do'>Task:</label>
