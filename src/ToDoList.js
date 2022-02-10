@@ -3,13 +3,10 @@ import { connect } from 'react-redux';
 import './ToDoList.css';
 import ToDo from './ToDo';
 
-function ToDoList({}) {
-    const [initialState, setInitialState] = useState({
-        todos: []
-    })
+function ToDoList({todos}) {
     return (
         <ul className='todo-list'>
-            {initialState.todos.map((task, index) => <ToDo task={task} key={index}></ToDo>)}
+            {todos.map((task, index) => <ToDo task={task} key={index}></ToDo>)}
         </ul>
     );
 }
