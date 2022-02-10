@@ -1,20 +1,17 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './ToDoList.css';
 import ToDo from './ToDo';
 import './Form.css';
 
-function ToDoList(props) {
-    debugger;
+function ToDoList({ todos }) {
     const [inputValue, setInputValue] = useState('')
 
     function handleSubmit(e) {
         e.preventDefault();
-        props.dispatch({
-            type: 'ADD',
-            task: inputValue
-        })
+        todos.push(inputValue)
         setInputValue('')
+        e.target.reset()
     }
 
     function handleChange(e) {
@@ -23,9 +20,11 @@ function ToDoList(props) {
 
     return (
         <>
-            <ul className='todo-list'>
-                {props.todos.map((task, index) => <ToDo task={task} key={index}></ToDo>)}
-            </ul>
+            <ol className='todo-list'>
+                {todos.length < 1
+                    ? <span>There is nothing to do</span>
+                    : todos.map((task, index) => <ToDo task={task} key={index}></ToDo>)}
+            </ol>
             <form className='form' onSubmit={(e) => handleSubmit(e)}>
                 <label className='label' htmlFor='to-do'>Task:</label>
                 <input
@@ -40,7 +39,6 @@ function ToDoList(props) {
                 <button
                     type='submit'
                     className='addButton'
-                    onClick={(e) => handleSubmit(e)}
                 >
                     Add a to-do
                 </button>
@@ -50,7 +48,6 @@ function ToDoList(props) {
 }
 
 function mapStateToProps(reduxState) {
-    debugger;
     return {
         todos: reduxState.todos
     }
