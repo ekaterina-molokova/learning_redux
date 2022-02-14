@@ -1,53 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import App from './App';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducer from './redux/reducers/rootReducer';
 
-let initialState = {
-    count: 0
-}
 const store = createStore(rootReducer)
-let newState = {...initialState}
-
-document.addEventListener("click", function () {
-    document.querySelector('.title').textContent = `Count is ${newState.count}`
-})
-
-function rootReducer(state=initialState, action) {
-    switch (action.type) {
-        case 'INCREMENT':
-            newState.count++;
-            return newState
-        case 'DECREMENT':
-            newState.count--;
-            return newState
-        default:
-            return state
-    }
-}
-
-function increment() {
-    store.dispatch({
-        type: 'INCREMENT'
-    })
-    console.log(newState.count)
-}
-
-function decrement() {
-    store.dispatch({
-        type: 'DECREMENT'
-    })
-    console.log(newState.count)
-}
 
 ReactDOM.render(
   <React.StrictMode>
       <Provider store={store}>
-          <h1 className='title'>Count is 0</h1>
-          <App count={newState} increment={increment} decrement={decrement} />
+          <App store={store} />
       </Provider>
   </React.StrictMode>,
   document.getElementById('root')

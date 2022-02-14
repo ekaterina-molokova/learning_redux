@@ -1,14 +1,13 @@
+import React from 'react';
 import './App.css';
-import React from "react";
+import ToDoList from './ToDoList';
 
-function App({count, increment, decrement}) {
+function App({ store }) {
   return (
-    <section className="App">
-        {/*<h1 className='title'>{`Count is: ${count.count}`}</h1>*/}
-        <button type='button' className='button' onClick={increment}>Increment</button>
-        <button type='button' className='button' onClick={decrement}>Decrement</button>
-        <button type='reset' className='button'>Reset</button>
-    </section>
+      <section className='App'>
+        <h1>See Our ToDos</h1>
+        <ToDoList store={store} />
+      </section>
   );
 }
 

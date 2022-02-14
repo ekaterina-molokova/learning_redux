@@ -6,16 +6,9 @@
   padding: 20px;
 }
 
-.button {
+h1 {
   box-sizing: border-box;
-  margin: 10px 0 0;
-  padding: 10px;
-  text-align: center;
-  border-radius: 14px;
-  background-color: bisque;
-}
-
-.button:hover {
-  cursor: pointer;
-  opacity: 0.5;
+  margin: 0 auto;
+  padding: 10px 0;
+  color: orangered;
 }

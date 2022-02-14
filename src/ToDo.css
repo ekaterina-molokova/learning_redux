@@ -1,0 +1,23 @@
+.todo-item {
+    box-sizing: border-box;
+    margin: 5px auto;
+    padding: 0;
+    font-size: medium;
+}
+
+.todo-item:hover {
+    cursor: pointer;
+    color: orangered;
+}
+
+.deleteButton {
+    box-sizing: border-box;
+    margin: 0 0 0 10px;
+    padding: 5px;
+    border-radius: 14px;
+    background-color: coral;
+}
+
+.deleteButton:active {
+    opacity: 1;
+}
