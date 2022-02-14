@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './ToDoList.css';
 import ToDo from './ToDo';
 import './Form.css';
-import { addToDo, deleteToDo } from './redux/actions/actionCreators';
 
 function ToDoList({ store, todos }) {
     const [inputValue, setInputValue] = useState({
         task: ''
     })
+
+    useEffect(() => {
+    }, [todos])
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -36,9 +38,11 @@ function ToDoList({ store, todos }) {
     return (
         <>
             <ol className='todo-list'>
-                {todos.map(( { task, id }) =>
-                    <ToDo task={task} key={id} id={id} remove={deleteToDo} />
-                    )}
+                {todos.length < 1
+                    ? <p className='notice'>No tasks</p>
+                    : todos.map(( { task, id }) =>
+                        <ToDo task={task} key={id} id={id} remove={deleteToDo} />
+                        )}
             </ol>
             <form className='form' onSubmit={(e) => handleSubmit(e)}>
                 <label className='label' htmlFor='to-do'>Task:</label>
@@ -63,10 +67,9 @@ function ToDoList({ store, todos }) {
 }
 
 function mapStateToProps(reduxState) {
-    debugger
     return {
         todos: reduxState.todos
     }
 }
 
-export default connect(mapStateToProps, { addToDo, deleteToDo }) (ToDoList);
+export default connect(mapStateToProps) (ToDoList);
